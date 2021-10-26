@@ -31,6 +31,7 @@ export default function SignUp({navigation}) {
             <View style={styles.inputEmail}>
               <Input
                 inputContainerStyle={{ borderBottomWidth: 0 }}
+                inputStyle={{fontSize: 15}}
                 placeholder="Email"
                 leftIcon={
                   <Icon
@@ -45,6 +46,7 @@ export default function SignUp({navigation}) {
             <View style={styles.inputPassword}>
               <Input
                 secureTextEntry={true}
+                inputStyle={{fontSize: 15}}
                 inputContainerStyle={{ borderBottomWidth: 0 }}
                 placeholder="Password"
                 leftIcon={

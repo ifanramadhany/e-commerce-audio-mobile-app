@@ -31,6 +31,7 @@ export default function SignIn({navigation}) {
             <View style={styles.inputEmail}>
               <Input
                 inputContainerStyle={{borderBottomWidth:0}}
+                inputStyle={{fontSize: 15}}
                 placeholder="Email"
                 leftIcon={<Icon name="mail-outline" size={24} color="#111827" style={{marginRight: 8}} />}
                 />
@@ -38,6 +39,7 @@ export default function SignIn({navigation}) {
             <View style={styles.inputPassword}>
               <Input
                 secureTextEntry={true}
+                inputStyle={{fontSize: 15}}
                 inputContainerStyle={{borderBottomWidth:0}}
                 placeholder="Password"
                 leftIcon={<Icon name="lock-closed-outline" size={24} color="#111827" style={{marginRight: 8}} />}
@@ -46,9 +48,11 @@ export default function SignIn({navigation}) {
             <Text style={{color: 'white', marginBottom: 25}}>
               Forgot Password
             </Text>
-            <View style={styles.signInBotton}>
-              <Text style={{color: 'white', fontSize: 17}}>Sign In</Text>
-            </View>
+            <TouchableOpacity style={styles.signInBotton} onPress={() => navigation.navigate('HomeScreen')}>
+              <View>
+                <Text style={{color: 'white', fontSize: 17}}>Sign In</Text>
+              </View>
+            </TouchableOpacity>
             <View style={styles.signUphere}>
               <Text style={{marginRight: 8, color: 'white'}}>Didn’t have any account?</Text>
               <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
