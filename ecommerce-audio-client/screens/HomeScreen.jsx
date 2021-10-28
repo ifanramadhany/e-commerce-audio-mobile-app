@@ -1,147 +1,188 @@
-import React from 'react'
-import { Text, StyleSheet, View, Image, ScrollView } from 'react-native'
+import React, { useState, useCallback } from 'react'
+import { Text, StyleSheet, View, Image, ScrollView, RefreshControl, TouchableHighlight, Pressable, TouchableOpacity } from 'react-native'
 import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Input, SocialIcon, SearchBar } from "react-native-elements";
 import CardTma1 from './components/CardTma1';
 import CardTma2HeadBand from './components/CardTma2HeadBand';
 import CardTma2Cable from './components/CardTma2Cable';
+import ButtonCategories from './components/ButtonCategories';
 
-export default function HomeScreen() {
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
+
+export default function HomeScreen({navigation}) {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  const categories = [
+    {
+      id: 1,
+      ctgry: "Headphone",
+    },
+    {
+      id: 2,
+      ctgry: "Headband",
+    },
+    {
+      id: 3,
+      ctgry: "Earpads",
+    },
+    {
+      id: 4,
+      ctgry: "TWS",
+    },
+    {
+      id: 5,
+      ctgry: "Cable",
+    }
+  ]
+
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.logo}>
-        <View style={{marginLeft: 15}}>
-          <Icon
-            name="menu-outline"
-            size={30}
-            color="#111827"
+    <SafeAreaView style={{backgroundColor: 'white'}}>
+      <ScrollView style={styles.container}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
           />
-        </View>
-        <View>
-          <Image
-            style={styles.imgLogo}
-            resizeMode="contain"
-            source={require("../assets/Logo.png")}
-          >
-          </Image>
-        </View>
-        <View style={{marginRight: 15}}>
-          <Image
-            style={styles.imgUser}
-            resizeMode="cover"
-            source={{
-              uri: "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80"
-            }}
-          >
-          </Image>
-        </View>
-      </View>
-
-      <View style={styles.hiUser}>
-        <View>
-          <Text style={{fontSize: 16, marginLeft: 18}}>
-            Hi, Andrea
-          </Text>
-        </View>
-        <View style={{marginLeft: 18}}>
-          <Text style={{fontSize: 29, fontWeight: 'bold'}}>
-            What are you looking for today?
-          </Text>
-        </View>
-        <View>
-          <View style={styles.inputSearch}>
-            <Input
-              inputContainerStyle={{ borderBottomWidth: 0}}
-              inputStyle={{fontSize: 15}}
-              placeholder="Search headphone"
-              placeholderTextColor="#9CA3AF"
-              leftIcon={
-                <Icon
-                  name="search-outline"
-                  size={24}
-                  color="#9CA3AF"
-                  style={{ marginRight: 10 }}
-                />
-              }
+        }
+        >
+        <View style={styles.logo}>
+          <View style={{marginLeft: 15}}>
+            <Icon
+              name="menu-outline"
+              size={30}
+              color="#111827"
             />
-            </View>
+          </View>
+          <View>
+            <Image
+              style={styles.imgLogo}
+              resizeMode="contain"
+              source={require("../assets/Logo.png")}
+            >
+            </Image>
+          </View>
+          <View style={{marginRight: 15}}>
+            <Image
+              style={styles.imgUser}
+              resizeMode="cover"
+              source={{
+                uri: "https://images.unsplash.com/photo-1531256456869-ce942a665e80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=387&q=80"
+              }}
+            >
+            </Image>
+          </View>
         </View>
-      </View>
 
-      <View style={styles.content}>
-        <View style={styles.headphone}>
-          <ScrollView
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{display: 'flex', alignItems: 'center', marginLeft: 10}}
-            horizontal={true}
-          >
-            <View style={styles.itemHeadphoneActive}>
-              <Text style={{color: 'white', fontSize: 14}}>
-                Headphone
-              </Text>
-            </View>
-            <View style={styles.itemHeadphone}>
-              <Text style={{color: '#6B7280', fontSize: 14}}>
-                Headband
-              </Text>
-            </View>
-            <View style={styles.itemHeadphone}>
-              <Text style={{color: '#6B7280', fontSize: 14}}>
-                Earpads
-              </Text>
-            </View>
-            <View style={styles.itemHeadphone}>
-              <Text style={{color: '#6B7280', fontSize: 14}}>
-                TWS
-              </Text>
-            </View>
-            <View style={styles.itemHeadphone}>
-              <Text style={{color: '#6B7280', fontSize: 14}}>
-                Cable
-              </Text>
-            </View>
-          </ScrollView>
+        <View style={styles.hiUser}>
+          <View>
+            <Text style={{fontSize: 16, marginLeft: 18}}>
+              Hi, Andrea
+            </Text>
+          </View>
+          <View style={{marginLeft: 18}}>
+            <Text style={{fontSize: 29, fontWeight: 'bold'}}>
+              What are you looking for today?
+            </Text>
+          </View>
+          <View>
+            <TouchableOpacity activeOpacity={0.7} style={styles.inputSearch} onPress={() => navigation.navigate("SearchScreen")}>
+              <Input
+                disabled={true}
+                inputContainerStyle={{ borderBottomWidth: 0}}
+                inputStyle={{fontSize: 15}}
+                placeholder="Search headphone"
+                placeholderTextColor="#9CA3AF"
+                leftIcon={
+                  <Icon
+                    name="search-outline"
+                    size={24}
+                    color="#9CA3AF"
+                    style={{ marginRight: 10 }}
+                  />
+                }
+              />
+              </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.contentTma1}>
-          <ScrollView
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{display: 'flex', alignItems: 'center', marginLeft: 20}}
-            horizontal={true}
-          >
-            <CardTma1></CardTma1>
-            <CardTma1></CardTma1>
-            <CardTma1></CardTma1>
-            
-          </ScrollView>
+
+        <View style={styles.content}>
+          <View style={styles.headphone}>
+            <ScrollView
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{display: 'flex', alignItems: 'center', marginLeft: 10}}
+              horizontal={true}
+            >
+              {
+                categories.map(item => {
+                  return (
+                    <ButtonCategories 
+                    key={item.id}
+                    item={item}
+                    navigation={navigation}
+                    ></ButtonCategories>
+                  )
+                })
+              }
+              
+              
+            </ScrollView>
+          </View>
+          <View style={styles.contentTma1}>
+            <ScrollView
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{display: 'flex', alignItems: 'center', marginLeft: 20}}
+              horizontal={true}
+            >
+              <CardTma1></CardTma1>
+              <CardTma1></CardTma1>
+              <CardTma1></CardTma1>
+              
+            </ScrollView>
+          </View>
+          <View style={styles.featuredProducts}>
+            <Text style={{fontSize: 15, marginLeft: 19}}>
+              Featured Products
+            </Text>
+            <Text style={{color: '#6B7280', fontSize: 14, marginRight: 20}}>
+                See All
+            </Text>
+          </View>
+          <View style={styles.contentTma2}>
+            <ScrollView
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={{display: 'flex', alignItems: 'center', marginLeft: 20}}
+              horizontal={true}
+            >
+              <CardTma2HeadBand></CardTma2HeadBand>
+              <CardTma2Cable></CardTma2Cable>
+              <CardTma2HeadBand></CardTma2HeadBand>
+              <CardTma2Cable></CardTma2Cable>
+            </ScrollView>
+          </View>
         </View>
-        <View style={styles.featuredProducts}>
-          <Text style={{fontSize: 15, marginLeft: 19}}>
-            Featured Products
-          </Text>
-          <Text style={{color: '#6B7280', fontSize: 14, marginRight: 20}}>
-              See All
-          </Text>
-        </View>
-        <View style={styles.contentTma2}>
-          <ScrollView
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{display: 'flex', alignItems: 'center', marginLeft: 20}}
-            horizontal={true}
-          >
-            <CardTma2HeadBand></CardTma2HeadBand>
-            <CardTma2Cable></CardTma2Cable>
-            <CardTma2HeadBand></CardTma2HeadBand>
-            <CardTma2Cable></CardTma2Cable>
-          </ScrollView>
-        </View>
-      </View>
-      
+        
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+  buttonPress: {
+    color: 'white',
+    fontSize: 14
+  },  
+  buttonNormal: {
+    color: '#6B7280',
+    fontSize: 14
+  },
   imgTma2: {
     display: 'flex',
     justifyContent: 'center',
@@ -208,6 +249,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#0ACF83',
     paddingHorizontal: 25,
     height: 35,
     backgroundColor: '#0ACF83'
@@ -219,6 +262,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 25,
+    borderWidth: 1,
+    borderColor: '#9CA3AF',
     height: 35,
     backgroundColor: '#E5E7EB'
   },
@@ -254,7 +299,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 50,
     marginHorizontal: 18,
-    marginBottom: 20,
+    marginBottom: 124,
     marginTop: 20
   },
   imgUser: {

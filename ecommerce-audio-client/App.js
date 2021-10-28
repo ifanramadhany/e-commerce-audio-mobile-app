@@ -6,6 +6,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import SignIn from './screens/SignIn';
 import SignUp from './screens/SignUp';
 import HomeScreen from './screens/HomeScreen';
+import SearchScreen from './screens/SearchScreen';
+import ExploreProducts from './screens/ExploreProducts';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +18,8 @@ export default function App() {
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
+        <Stack.Screen name="ExploreProducts" component={ExploreProducts} />
       </Stack.Navigator>
     </NavigationContainer>
   );
