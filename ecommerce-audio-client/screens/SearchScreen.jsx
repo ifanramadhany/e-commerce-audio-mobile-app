@@ -169,7 +169,7 @@ export default function SearchScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   topMenu: {
-    height: "19%",
+    height: 149,
     width: '100%',
     borderBottomWidth: 1,
     borderBottomColor: '#E5E7EB'
