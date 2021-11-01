@@ -60,9 +60,9 @@ export default function SignUp({navigation}) {
               />
             </View>
 
-            <View style={styles.signInBotton}>
+            <TouchableOpacity style={styles.signInBotton} onPress={() => navigation.navigate('HomeScreen')}>
               <Text style={{ color: "white", fontSize: 17 }}>Sign Up</Text>
-            </View>
+            </TouchableOpacity>
             <View style={styles.oauth}>
               <View style={styles.oauthItem}>
                 <Icon name="logo-apple" size={35} color="#111827" />

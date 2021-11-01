@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "ecommerce-audio-client",
-    "slug": "ecommerce-audio-client",
+    "name": "ecommerce-ui-audio-client",
+    "slug": "ecommerce-ui-audio-client",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "",
+    "githubUrl": "https://github.com/ifanramadhany/e-commerce-audio-mobile-app"
   }
 }
