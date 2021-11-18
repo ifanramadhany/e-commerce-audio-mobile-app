@@ -13,6 +13,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/Ionicons";
 import { Input, SocialIcon, SearchBar } from "react-native-elements";
 import ButtonCategoriesWhite from "./components/ButtonCategoriesWhite";
+import CardExploreProduct from "./components/CardExploreProduct";
 
 export default function ExploreProducts({ navigation }) {
   const [isPressFilter, setIsPressFilter] = useState(false);
@@ -35,6 +36,51 @@ export default function ExploreProducts({ navigation }) {
       ctgry: "Most Valuable",
     },
   ];
+
+  const exploreProducts = [
+    {
+      id: 1,
+      name: "TMA-2 Comfort Wireless",
+      price: 354,
+      star: "4.0",
+      review: 102
+    },
+    {
+      id: 2,
+      name: "Earpads Pro LX1",
+      price: 270,
+      star: "4.4",
+      review: 86
+    },
+    {
+      id: 3,
+      name: "Headband MNX-12",
+      price: 450,
+      star: "4.9",
+      review: 231
+    },
+    {
+      id: 4,
+      name: "TWS-Sport R-30",
+      price: 600,
+      star: "4.9",
+      review: 366
+    },
+    {
+      id: 5,
+      name: "TWS-Sport R-30",
+      price: 600,
+      star: "4.9",
+      review: 366
+    },
+    {
+      id: 6,
+      name: "TWS-Sport R-400",
+      price: 600,
+      star: "4.9",
+      review: 366
+    },
+  ] 
 
   return (
     <SafeAreaView style={{ backgroundColor: "white" }}>
@@ -66,111 +112,109 @@ export default function ExploreProducts({ navigation }) {
           TMA Wireless
         </Text>
         <View>
-
-        <ScrollView
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            display: "flex",
-            alignItems: "center",
-            marginLeft: 10,
-          }}
-          horizontal={true}
-        >
-          <TouchableHighlight
-            underlayColor="#0ACF83"
-            style={
-              isPressFilter
-                ? styles.itemHeadphoneActiveFilter
-                : styles.itemHeadphoneFilter
-            }
-            onPress={() => navigation.navigate("ExploreProducts")}
-            onPressIn={() => setIsPressFilter(true)}
-            onPressOut={() => setIsPressFilter(false)}
+          <ScrollView
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={{
+              display: "flex",
+              alignItems: "center",
+              marginLeft: 10,
+            }}
+            horizontal={true}
           >
-            <View style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-              <Icon
-                name="options"
-                size={24}
-                style={isPressFilter ? styles.buttonPressIcon : styles.buttonNormalIcon}
-              />
-              <Text style={isPressFilter ? styles.buttonPress : styles.buttonNormal}>
-                Filter
-              </Text>
-            </View>
-          </TouchableHighlight>
-          {categories.map((item) => {
-            return (
-              <ButtonCategoriesWhite
-                key={item.id}
-                item={item}
-                navigation={navigation}
-              ></ButtonCategoriesWhite>
-            );
-          })}
-        </ScrollView>
+            <TouchableHighlight
+              underlayColor="#0ACF83"
+              style={
+                isPressFilter
+                  ? styles.itemHeadphoneActiveFilter
+                  : styles.itemHeadphoneFilter
+              }
+              onPress={() => navigation.navigate("ExploreProducts")}
+              onPressIn={() => setIsPressFilter(true)}
+              onPressOut={() => setIsPressFilter(false)}
+            >
+              <View
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Icon
+                  name="options"
+                  size={24}
+                  style={
+                    isPressFilter
+                      ? styles.buttonPressIcon
+                      : styles.buttonNormalIcon
+                  }
+                />
+                <Text
+                  style={
+                    isPressFilter ? styles.buttonPress : styles.buttonNormal
+                  }
+                >
+                  Filter
+                </Text>
+              </View>
+            </TouchableHighlight>
+            {categories.map((item) => {
+              return (
+                <ButtonCategoriesWhite
+                  key={item.id}
+                  item={item}
+                  navigation={navigation}
+                ></ButtonCategoriesWhite>
+              );
+            })}
+          </ScrollView>
         </View>
         <ScrollView style={styles.allCard}>
           <View style={styles.containerCard}>
-            <View style={styles.cardProduct}>
-
-            </View>
-            <View style={styles.cardProduct}>
-
-            </View>
-            <View style={styles.cardProduct}>
-
-            </View>
-            <View style={styles.cardProduct}>
-
-            </View>
-            <View style={styles.cardProduct}>
-
-            </View>
-            <View style={styles.cardProduct}>
-
-            </View>
-            
+            {/* Card Explore Product  */}
+            {
+              exploreProducts.map(item => {
+                return (
+                  <CardExploreProduct
+                  key={item.id}
+                  item={item}
+                  ></CardExploreProduct>
+                )
+              })
+            }
           </View>
         </ScrollView>
-        <View style={{width: "100%", height: 25, backgroundColor: '#E5E7EB'}}>
-
-        </View>
+        <View
+          style={{
+            width: "100%",
+            height: 25,
+            backgroundColor: "#E5E7EB",
+            borderBottomLeftRadius: 20,
+            borderBottomRightRadius: 20,
+          }}
+        ></View>
       </ScrollView>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  cardProduct: {
-    margin: 10,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    width: 170,
-    height: 285,
-    shadowColor: "#000",
-    shadowOffset:{
-    width: 0,
-    height: 5,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 6.68,
-    elevation: 3,
-  },  
+  
   containerCard: {
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    width: "100%",
+    justifyContent: "flex-start",
+    alignItems: "center",
     marginLeft: 6,
-    marginTop: 18
-  },  
+    marginTop: 18,
+  },
   allCard: {
-    backgroundColor: '#E5E7EB',
+    backgroundColor: "#E5E7EB",
     marginTop: 25,
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
     borderTopRightRadius: 20,
     borderTopLeftRadius: 20,
   },
